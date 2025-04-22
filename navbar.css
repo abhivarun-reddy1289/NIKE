@@ -34,7 +34,7 @@ html {
     align-items: center;
     flex-basis: 85%;
     display: flex;
-    gap: 380px;
+    gap: 200px;
 }
 #content>a{
     color: aliceblue;
