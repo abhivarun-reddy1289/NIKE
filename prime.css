@@ -1,0 +1,27 @@
+*{
+    margin: 0;
+    
+}
+
+body{
+    background: rgb(219, 225, 40) url("https://pngmaterial.com/dvsxyz02/uploads/swastik-design-images.png") no-repeat center fixed;
+    background-size: 1000px 900px;
+
+    /* background: conic-gradient(orange ,white ,green ); */
+    /* background-repeat: no-repeat; */
+     
+}
+
+button:hover{
+    background-color: rgb(159, 32, 123);
+}
+
+h1{
+    color: red;
+    transition: all 2s linear 0ms;
+        
+}
+h5{
+    color: white;
+}
+
