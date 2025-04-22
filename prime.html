@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Prime Button</title>
+  <link rel="stylesheet" href="prime.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+    }
+    button {
+      font-size: 1.5em;
+      font-weight: bold;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+    .counter {
+      margin-top: 20px;
+      font-size: 1.2em;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+    <marquee behavior="alternate" direction="left" scrollamount="25"><h1>PRIME NUMBER GENERATION</h1></marquee>
+    <br><br><br><br><br><br><br><br><br><br><br><br>
+    <center><h5>Click for the Next Prime</h5></center>
+    
+  <center><button id="primeButton" onclick="handleClick()"><strong>Start</strong></button></center>
+  <br><br></br>
+  
+  <center><div class="counter" id="counterDisplay">Counter: 0</div></center>
+
+  <script>
+    let currentNumber = 1;
+    let counter = 0;
+
+    function isPrime(num) {
+      if (num <= 1) return false;
+      if (num === 2) return true;
+      if (num % 2 === 0) return false;
+      for (let i = 3; i <= Math.sqrt(num); i += 2) {
+        if (num % i === 0) return false;
+      }
+      return true;
+    }
+
+    function getNextPrime() {
+      while (true) {
+        currentNumber++;
+        if (isPrime(currentNumber)) return currentNumber;
+      }
+    }
+
+    function handleClick() {
+      const nextPrime = getNextPrime();
+      counter++;
+      document.getElementById("primeButton").innerHTML = `<strong>${nextPrime}</strong>`;
+      document.getElementById("counterDisplay").textContent = `Counter: ${counter}`;
+    }
+  </script>
+</body>
+</html>
