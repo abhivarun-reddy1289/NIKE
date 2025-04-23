@@ -14,7 +14,7 @@ body{
 }
 
 button:hover{
-    background-color: rgb(159, 32, 123);
+    background-color: rgb(89, 143, 225);
 }
 
 h1{
@@ -26,4 +26,22 @@ h1{
 h5{
     color: white;
 }
+#prime-display {
+    font-weight: bold;
+    margin-top: 20px;
+    font-size: 3.5em;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 1;
+  }
 
+  #prime-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  .animate {
+    transform: scale(1.4);
+    opacity: 0;
+  }
