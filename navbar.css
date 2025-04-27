@@ -1,107 +1,183 @@
-*{
-    margin: 0;
-    box-sizing: border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-nav{
-    height: 80px;
-    background-color: red;
-    display: flex;
-    flex-direction: row;
-}
 html {
-    scroll-behavior: smooth; /* Built-in smooth scroll */
-  }
-
-#logo{
-    /* border: 2px solid white; */
-    flex-basis: 15%;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-}
-#logo img{
-    height: 90px;
-    width: 100px;
-    align-items: center;
-    justify-content: center;
+  scroll-behavior: smooth;
+  font-family: Arial, sans-serif;
 }
 
+/* body {
+  line-height: 1.6;
+  background-color: #f4f4f4;
+} */
 
-#content{
-    /* border: 2px solid white; */
-    justify-content: center;
-    align-items: center;
-    flex-basis: 85%;
-    display: flex;
-    gap: 380px;
-}
-#content>a{
-    color: aliceblue;
-    font-size: 20px;
-    text-decoration: none;
-        
-}
 
-div{
-    height: 100vh;  
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-h1{
-    color: royalblue;
-    transition: all 1s linear 0ms;
-        
+/* Navigation Bar */
+nav {
+  height: 80px;
+  background-color: red;
+  display: flex;
+  align-items: center;
+  padding: 0 40px;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
-a:hover{
-    background-color: green;
-}
-nav:hover{
-    background-color: black;
+#logo img {
+  height: 90px;
 }
 
-h1:hover{
-    font-size: 80px;
-    background-color: rgb(255, 255, 255);
-    color: black;
+#content {
+  display: flex;
+  gap: 50px;
 }
 
-#home {
-    background-color: lightgrey;
-  }
-  
-  #about {
-    background-color:white;
-  }
-  
-  
-  #contact {
-    background-color:greenyellow;
-  }
+#content a {
+  color: white;
+  font-size: 18px;
+  text-decoration: none;
+  transition: background 0.3s, color 0.3s;
+  padding: 8px 12px;
+  border-radius: 6px;
+}
 
-#home {
+#content a:hover {
+  background-color: green;
+  color: white;
+}
+
+nav:hover {
+  background-color: black;
+}
+
+/* Section Styles */
+section {
   padding: 100px 20px;
-  height: 100vh;
-  /* padding-top: 80px; */
-   /* for space below navbar */
+  min-height: 100vh;
 }
 
+/* #home {
+  background-color: #e9ecef;
+  text-align: center;
+}
+ */
 #about {
-    color: black;
-    padding: 100px 20px;
-    height: 100vh;
-    padding-top: 80px;
-    
-  }
+  background-color:black;
+}
 
-  #contact {
-    padding: 100px 20px;
-    height: 100vh;
-    padding-top: 80px; 
-  }
 
- #about:hover{
-    background: lightsalmon;
- } 
+
+#contact {
+  background-color: #d4edda;
+}
+
+/* Product Grid */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 25px;
+  margin-top: 40px;
+}
+
+.product-card {
+  background: white;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.product-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.product-card h3 {
+  margin: 15px 0 10px;
+  color: #111;
+  font-size: 20px;
+}
+
+.product-card p {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 16px;
+}
+
+.buy-btn {
+  padding: 10px 20px;
+  background-color: #111;
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  display: inline-block;
+  transition: background-color 0.3s ease;
+}
+
+.buy-btn:hover {
+  background-color: #e51c23;
+}
+
+
+/* Home Section with Gradient & Hero Banner Effect */
+#home {
+  background: linear-gradient(to right, #f5f7fa, #c3cfe2);
+  text-align: center;
+  padding: 120px 20px;
+  min-height: 100vh;
+  background-image: url('https://www.transparenttextures.com/patterns/cubes.png'); /* Subtle pattern */
+  background-repeat: repeat;
+}
+
+/* About Section with Light Gradient and Hover Effect */
+
+
+
+
+/* Contact Section with Soft Green Gradient */
+#contact {
+  background: linear-gradient(to top, #e0f7da, #a5d6a7);
+}
+
+
+.caption {
+  font-size: 4rem;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #ff416c, #ff4b2b, #ffeb3b, #4caf50, #2196f3, #9c27b0);
+  background-size: 400%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientMove 5s linear infinite, slideLeftRight 8s ease-in-out infinite;
+  position: relative;
+  white-space: nowrap;
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0%;
+  }
+  100% {
+    background-position: 100%;
+  }
+}
+
+@keyframes slideLeftRight {
+  0%, 100% {
+    transform: translateX(-100px);
+  }
+  50% {
+    transform: translateX(100px);
+  }
+}

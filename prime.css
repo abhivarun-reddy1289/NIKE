@@ -1,0 +1,53 @@
+*{
+    margin: 0;
+    
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    
+    
+  }
+  
+  @keyframes gradientBG {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+  }
+
+
+button:hover{
+    background-color: rgb(89, 143, 225);
+}
+
+h1{
+    color: red;
+    transition: all 2s linear 0ms;
+    /* color: white; */
+        
+}
+h5{
+    color: white;
+}
+#prime-display {
+    font-weight: bold;
+    margin-top: 20px;
+    font-size: 3.5em;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 1;
+  }
+
+  #prime-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  .animate {
+    transform: scale(1.4);
+    opacity: 0;
+  }
