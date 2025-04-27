@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact Us</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #6e8efb, #a777e3);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      animation: fadeInBody 1s ease-in;
+    }
+
+    @keyframes fadeInBody {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .form-container {
+      background-color: #ffffff;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      width: 100%;
+      max-width: 500px;
+      animation: slideIn 1s ease-in-out;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateY(-40px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 30px;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: 600;
+      color: #555;
+      position: relative;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      margin-top: 5px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      transition: border-color 0.3s;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    input:focus, textarea:focus {
+      border-color: #6e8efb;
+      outline: none;
+    }
+
+    .input-container {
+      position: relative;
+      margin-top: 15px;
+    }
+
+    .floating-label {
+      position: absolute;
+      left: 12px;
+      top: 12px;
+      font-size: 16px;
+      color: #bbb;
+      transition: all 0.3s ease;
+    }
+
+    input:focus ~ .floating-label, textarea:focus ~ .floating-label, input:not(:placeholder-shown) ~ .floating-label, textarea:not(:placeholder-shown) ~ .floating-label {
+      top: -10px;
+      left: 12px;
+      font-size: 12px;
+      color: #6e8efb;
+    }
+
+    textarea {
+      resize: vertical;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 25px;
+      padding: 12px;
+      background: linear-gradient(to right, #6e8efb, #a777e3);
+      color: white;
+      border: none;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    button:hover {
+      transform: scale(1.03);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background-color: #28a745;
+      color: white;
+      font-size: 16px;
+      padding: 15px 25px;
+      border-radius: 8px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 0.6s ease;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .toast .icon {
+      margin-right: 15px;
+      font-size: 20px;
+    }
+
+    .toast .message {
+      font-weight: bold;
+    }
+
+    /* Loader */
+    .loader {
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #6e8efb;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      display: none;
+      margin: 20px auto;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 600px) {
+      .form-container {
+        padding: 30px 20px;
+      }
+
+      .toast {
+        bottom: 20px;
+        right: 20px;
+        width: calc(100% - 40px);
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <h1>Contact Us</h1>
+    <form id="contactForm" action="send.php" method="POST" onsubmit="showLoader()">
+      <div class="input-container">
+        <input type="text" name="name" id="name" required placeholder=" ">
+        <label for="name" class="floating-label">Name</label>
+      </div>
+
+      <div class="input-container">
+        <input type="text" name="address" id="address" required placeholder=" ">
+        <label for="address" class="floating-label">Address</label>
+      </div>
+
+      <div class="input-container">
+        <textarea name="message" id="message" rows="5" required placeholder=" "></textarea>
+        <label for="message" class="floating-label">Message</label>
+      </div>
+
+      <button type="submit">Send Message</button>
+    </form>
+
+    <!-- Loader animation -->
+    <div class="loader" id="loader"></div>
+  </div>
+
+  <div class="toast" id="toast">
+    <div class="icon">✅</div>
+    <div class="message">Message sent successfully!</div>
+  </div>
+
+  <script>
+    // Show toast notification if message sent successfully
+    const urlParams = new URLSearchParams(window.location.search);
+    const sent = urlParams.get('sent');
+
+    if (sent === "1") {
+      const toast = document.getElementById("toast");
+      toast.classList.add("show");
+      setTimeout(() => {
+        toast.classList.remove("show");
+      }, 4000);
+    }
+
+    // Show loader on form submit
+    function showLoader() {
+      document.getElementById('loader').style.display = 'block';
+    }
+  </script>
+
+</body>
+</html>
