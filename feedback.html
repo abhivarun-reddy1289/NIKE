@@ -5,15 +5,12 @@
   <title>Ultimate Feedback Form ✨</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
   <style>
-    /* Basic Setup */
     body {
       margin: 0;
       padding: 0;
       min-height: 100vh;
       overflow: hidden;
-      position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -22,15 +19,11 @@
       animation: gradientShift 30s ease infinite;
       font-family: 'Poppins', sans-serif;
     }
-
-    /* 🌈 Multi-Color Changing Gradient */
     @keyframes gradientShift {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
-
-    /* ✨ Stars */
     .stars {
       width: 2px;
       height: 2px;
@@ -48,13 +41,10 @@
     .stars:nth-child(6) { top: 80%; left: 10%; animation-delay: 2.5s; }
     .stars:nth-child(7) { top: 40%; left: 70%; animation-delay: 3s; }
     .stars:nth-child(8) { top: 60%; left: 40%; animation-delay: 3.5s; }
-
     @keyframes twinkle {
       0% { opacity: 0.2; transform: scale(1); }
       100% { opacity: 1; transform: scale(1.5); }
     }
-
-    /* 🫧 Floating Bubbles */
     .bubble {
       position: absolute;
       bottom: -100px;
@@ -63,7 +53,6 @@
       pointer-events: none;
       animation: rise 20s infinite ease-in;
     }
-
     @keyframes rise {
       0% {
         transform: translateY(0) scale(0.5);
@@ -77,8 +66,6 @@
         opacity: 0;
       }
     }
-
-    /* 🎯 FORM Styling with 3D Tilt */
     .form-container {
       position: relative;
       background: #ffffff;
@@ -94,47 +81,39 @@
       transition: transform 0.1s ease, box-shadow 0.3s;
       transform-style: preserve-3d;
     }
-
     @keyframes fadeZoom {
       to {
         opacity: 1;
         transform: scale(1);
       }
     }
-
     .form-container:hover {
       box-shadow: 0 0 20px rgba(116, 235, 213, 0.6), 0 0 40px rgba(116, 235, 213, 0.4);
     }
-
     h2 {
       text-align: center;
       margin-bottom: 20px;
       color: #333;
     }
-
     label {
       display: block;
       margin-bottom: 5px;
       font-weight: 600;
       color: #555;
     }
-
     input, textarea {
       width: 100%;
       padding: 12px 15px;
       margin-bottom: 20px;
       border: 1px solid #ccc;
       border-radius: 8px;
-      box-sizing: border-box;
       font-size: 14px;
     }
-
     input:focus, textarea:focus {
       outline: none;
       border-color: #74ebd5;
       box-shadow: 0 0 5px rgba(116, 235, 213, 0.5);
     }
-
     button {
       width: 100%;
       padding: 12px;
@@ -147,26 +126,16 @@
       cursor: pointer;
       transition: background-color 0.3s;
     }
-
     button:hover {
       background-color: #4dd0e1;
     }
   </style>
 </head>
-
 <body>
 
-<!-- ✨ Stars -->
-<div class="stars"></div>
-<div class="stars"></div>
-<div class="stars"></div>
-<div class="stars"></div>
-<div class="stars"></div>
-<div class="stars"></div>
-<div class="stars"></div>
-<div class="stars"></div>
-
-<!-- 🫧 Bubbles -->
+<!-- Stars and Bubbles -->
+<div class="stars"></div><div class="stars"></div><div class="stars"></div><div class="stars"></div>
+<div class="stars"></div><div class="stars"></div><div class="stars"></div><div class="stars"></div>
 <script>
   for (let i = 0; i < 15; i++) {
     let bubble = document.createElement('div');
@@ -178,7 +147,7 @@
   }
 </script>
 
-<!-- 🎯 Form -->
+<!-- Form -->
 <div class="form-container" id="formBox">
   <h2>USER Feedback</h2>
   <form id="feedbackForm">
@@ -202,36 +171,35 @@
 </div>
 
 <script>
-  // ✨ Form Submission Confirmation
   document.getElementById('feedbackForm').addEventListener('submit', function(event) {
-      event.preventDefault();
-      var mobile = document.getElementById('mobile').value;
-      if (mobile.length !== 10) {
-          Swal.fire('Error', 'Mobile number must be exactly 10 digits!', 'error');
-          return;
-      }
-      var formData = new FormData(this);
+    event.preventDefault();
 
-      fetch('feedbacksubmit.php', {
-          method: 'POST',
-          body: formData
-      })
-      .then(response => response.text())
-      .then(data => {
-          Swal.fire({
-              title: 'Success!',
-              text: 'Your feedback has been submitted!',
-              icon: 'success',
-              confirmButtonText: 'OK'
-          });
-          document.getElementById('feedbackForm').reset();
-      })
-      .catch(error => {
-          Swal.fire('Error', 'Something went wrong!', 'error');
-      });
+    const mobile = document.getElementById('mobile').value;
+    if (mobile.length !== 10) {
+      Swal.fire('Error', 'Mobile number must be exactly 10 digits!', 'error');
+      return;
+    }
+
+    const formData = new FormData(this);
+    fetch('submit.php', {
+      method: 'POST',
+      body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        Swal.fire('Success', data.message, 'success');
+        document.getElementById('feedbackForm').reset();
+      } else {
+        Swal.fire('Error', data.message, 'error');
+      }
+    })
+    .catch(() => {
+      Swal.fire('Error', 'Something went wrong!', 'error');
+    });
   });
 
-  // 🎯 3D Tilt Effect
+  // Tilt effect
   const formBox = document.getElementById('formBox');
   document.addEventListener('mousemove', (e) => {
     let x = (window.innerWidth / 2 - e.clientX) / 50;
